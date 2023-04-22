@@ -85,11 +85,13 @@ class CMakeBuild(build_ext):
                                                               self.distribution.get_version())
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
-        subprocess.check_call(['cmake', ext.sourcedir] +
+        res1 = subprocess.check_call(['cmake', ext.sourcedir] +
                               cmake_args, cwd=self.build_temp, env=env)
-        subprocess.check_call(['cmake', '--build', '.'] +
-                              build_args, cwd=self.build_temp)
+        print("Stat1: ", res1, self.build_temp)
 
+        res2 = subprocess.check_call(['cmake', '--build', '.'] +
+                              build_args,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+        print("Stat2: ", res2)
 
 setup(
     name='flightgym',
