@@ -40,6 +40,8 @@ else()
   set(EIGEN_INCLUDE_DIR ${EIGEN_ALTERNATIVE})
 endif()
 
+set(EIGEN3_INCLUDE_DIR "/usr/local/include/eigen3/Eigen/")
+
 message(STATUS "Eigen3 include dir: ${EIGEN3_INCLUDE_DIR}")
 
 # Including dependencies 
@@ -95,8 +97,8 @@ if (NOT EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
 endif()
 
 # Add c++ flags 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -fPIC -Wall -DNDEBUG  -fopenmp")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -fPIC -Wall -g -fopenmp")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -fPIC -Wall -DNDEBUG -Xpreprocessor  -fopenmp")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -fPIC -Wall -g -Xpreprocessor -fopenmp")
 set(CMAKE_CXX_STANDARD 17)
 
 # Architectural flags
