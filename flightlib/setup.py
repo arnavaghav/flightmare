@@ -89,9 +89,15 @@ class CMakeBuild(build_ext):
                               cmake_args, cwd=self.build_temp, env=env)
         print("Stat1: ", res1, self.build_temp)
 
-        res2 = subprocess.check_call(['cmake', '--build', '.'] +
-                              build_args,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-        print("Stat2: ", res2)
+        try:
+            out = subprocess.check_output(['cmake', '--build', '.'] +
+                                  build_args, stderr=subprocess.STDOUT, cwd=self.build_lib, shell=True)
+        except subprocess.CalledProcessError as exc:
+            print("Status : FAIL", exc.returncode, exc.output)
+        else:
+            print("Output: \n{}\n".format(out))
+
+        # print("Stat2: ", res2)
 
 setup(
     name='flightgym',
